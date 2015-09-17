@@ -1,0 +1,170 @@
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+<link rel="stylesheet" href="customer/assets/css/customer.css">
+<div data-ng-controller="CustomerController">
+    <form class="pure-form pure-form-aligned"  name="customerForm" ng-submit="submitForm(customerForm.$valid)" novalidate>
+        <fieldset>
+            <div class="pure-control-group">
+                <label for="name">Name</label>
+                <input 
+                name="name" 
+                ng-model="customer.name" 
+                type="text" 
+                placeholder="Name" 
+                ng-model-options="{ updateOn: 'blur' }"
+                ng-pattern="/[a-zA-Z0-9]$/"
+                maxlength="15"
+                required>
+                <span ng-show="customerForm.name.$dirty && submitted">
+                    <span class="help-block" ng-show="customerForm.name.$error.required">
+                    Please enter name
+                    </span>
+                    <span class="help-block" ng-show="customerForm.name.$error.maxLength">
+                    The limit is 15 char.
+                    </span>
+                    <span class="help-block" ng-show="customerForm.name.$error.pattern">
+                    Name cannot have special charater
+                    </span>
+                </span>
+            </div>
+            <div class="pure-control-group">
+                <label for="password">Company Name</label>
+                <input 
+                name="companyName"
+                ng-model="customer.companyName" 
+                type="text" 
+                placeholder="Eg:Google"
+                ng-model-options="{ updateOn: 'blur' }"
+                ng-pattern="/[a-zA-Z0-9]$/"
+                maxlength="15"
+                required>
+                <span ng-show="customerForm.companyName.$dirty && submitted">
+                    <span class="help-block" ng-show="customerForm.companyName.$error.required">
+                    Please enter Company name
+                    </span>
+                    <span class="help-block" ng-show="customerForm.companyName.$error.maxLength">
+                    The limit is 15 char.
+                    </span>
+                    <span class="help-block" ng-show="customerForm.companyName.$error.pattern">
+                    Name cannot have special charater
+                    </span>
+                </span>
+            </div>
+            <div class="pure-control-group">
+                <label >Address Line1</label>
+                <input 
+                name="addressLine1" 
+                ng-model="customer.addressLine1" 
+                type="text" 
+                placeholder="Enter address here..." 
+                required>
+                <span ng-show="customerForm.addressLine1.$dirty && submitted">
+                    <span class="help-block" ng-show="customerForm.addressLine1.$error.required">
+                    Please enter address
+                    </span>
+                </span>
+            </div>
+            <div class="pure-control-group">
+                <label>Address Line2</label>
+                <input 
+                name="addressLine2" 
+                ng-model="customer.addressLine2" 
+                type="text" 
+                placeholder="Enter address here...">
+                <span ng-show="customerForm.addressLine2.$dirty && submitted">
+                    <span class="help-block" ng-show="customerForm.addressLine2.$error.required">
+                    Please enter address
+                    </span>
+                </span>
+            </div>
+            <div class="pure-control-group">
+                <label >Email</label>
+                <input 
+                name="email" 
+                ng-model="customer.email" 
+                type="email" 
+                placeholder="Email Address"
+                ng-model-options="{ updateOn: 'blur' }" 
+                ng-pattern="/[a-zA-Z0-9]$/"
+                maxlength="50"
+                required>
+                <span ng-show="customerForm.email.$dirty && submitted">
+                    <span class="help-block" ng-show="customerForm.email.$error.required">
+                    Please enter Email address
+                    </span>
+                    <span class="help-block" ng-show="customerForm.email.$error.email">
+                    Please enter valid email id.
+                    </span>
+                </span>
+            </div>
+            <div class="pure-control-group">
+                <label >Phone</label>
+                <input 
+                name="phone" 
+                ng-model="customer.phone" 
+                type="number" 
+                placeholder="Phone number">
+                <span ng-show="customerForm.phone.$dirty && submitted">
+                    <span class="help-block" ng-show="customerForm.phone.$error.required">
+                    Please enter Phone number
+                    </span>
+                </span>
+            </div>
+            <div class="pure-control-group">
+                <label>Mobile</label>
+                <input 
+                name="mobile" 
+                ng-model="customer.mobile" 
+                type="number" 
+                placeholder="Mobile number"
+                minlength="10" 
+                maxlength="10"
+                ng-pattern="/^[7|8|9][0-9]{9}$/"
+                required>
+                <span ng-show="customerForm.mobile.$dirty && submitted">
+                    <span class="help-block" ng-show="customerForm.mobile.$error.required">
+                    Please enter Mobile number
+                    </span>
+                    <span class="help-block" ng-show="customerForm.mobile.$error.minlength || customerForm.mobile.$error.maxlength
+                    || customerForm.mobile.$error.pattern">
+                    Please enter valid mobile number.
+                    </span>
+                </span>
+            </div>
+            <div class="pure-control-group">
+                <label>Google Place</label>
+                <input 
+                name="googlePlace" 
+                id="autocomplete" 
+                type="text" 
+                placeholder="Enter a location" required>
+                <span ng-show="customerForm.googlePlace.$dirty && submitted">
+                    <span class="help-block" ng-show="customerForm.googlePlace.$error.required">
+                    Please select a Place
+                    </span>
+                </span>
+            </div>
+            <div class="pure-controls">
+                <button type="submit"  class="pure-button pure-button-primary">Submit</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+<script>
+
+    var placeSearch, autocomplete;
+    function initAutocomplete() {
+        autocomplete = new google.maps.places.Autocomplete(
+            (document.getElementById('autocomplete')),
+            {types: ['geocode']
+        });
+        autocomplete.addListener('place_changed', placeChange);
+    }
+    function placeChange(){
+        var place = autocomplete.getPlace();
+        document.getElementById('autocomplete').value=place.formatted_address;
+    }
+
+</script>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq50tq32hgtbDujxp_OSAzKje96HNXJ00&signed_in=true&libraries=places&callback=initAutocomplete"
+        async defer> </script>

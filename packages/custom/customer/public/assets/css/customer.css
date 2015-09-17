@@ -1,0 +1,16 @@
+/**customer css file **/
+
+
+.customer-example h1 {
+  background-color: purple
+}
+.help-block {
+ 	color: red;
+ 	padding-left :15%;
+}
+.pure-control-group{
+	margin-top: 50px;
+}
+.pure-control-group input {
+	width :40%;
+}
