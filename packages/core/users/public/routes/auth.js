@@ -34,6 +34,24 @@ angular.module('mean.users').config(['$meanStateProvider', '$httpProvider', 'jwt
           }
         }
       })
+      .state('auth.merchantregister', {
+        url: '/merchantregister',
+        templateUrl: 'users/views/merchantregister.html',
+        resolve: {
+          loggedin: function(MeanUser) {
+            return MeanUser.checkLoggedOut();
+          }
+        }
+      })
+      .state('auth.customerregister', {
+        url: '/customerregister',
+        templateUrl: 'users/views/customerregister.html',
+        resolve: {
+          loggedin: function(MeanUser) {
+            return MeanUser.checkLoggedOut();
+          }
+        }
+      })
       .state('forgot-password', {
         url: '/forgot-password',
         templateUrl: 'users/views/forgot-password.html',
